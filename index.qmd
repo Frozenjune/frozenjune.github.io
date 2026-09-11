@@ -1,8 +1,8 @@
---
+---
 title: "June Lynn"
-image: images/profile.jpeg
 about: 
-  template: marquee
+  template: jolla
+  image: images/profile.jpeg
   image-shape: rectangle
 ---
 

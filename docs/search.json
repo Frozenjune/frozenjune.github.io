@@ -1,16 +1,51 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "June Lynn",
+    "objectID": "posts/first-weeks/index.html",
+    "href": "posts/first-weeks/index.html",
+    "title": "My first weeks in MDS",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Orientation day on campus."
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "My first weeks in MDS\n\n\n\n\n\n\n\n\nSep 11, 2026\n\n\nJune Lynn\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site"
+    "text": "Before joining the MDS program, I studied at BCIT, where I completed a Diploma in International Trade and Transportation, a Bachelor of Business Administration in Business Intelligence and Value Management, and a Graduate Certificate in Business Analytics. I also hold the Certified Customs Specialist (CCS) designation from the Canadian Society of Customs Brokers (CSCB).\nI have over twenty years of professional experience working with data-driven forecasting, reporting, and business systems across international trade, customs, freight forwarding, and global supply chain operations. My work involved close collaboration with IT teams and data engineers, supporting EDI, ERP and CRM implementations, and translating complex data into actionable insights for senior leadership."
+  },
+  {
+    "objectID": "about.html#background",
+    "href": "about.html#background",
+    "title": "About",
+    "section": "",
+    "text": "Before joining the MDS program, I studied at BCIT, where I completed a Diploma in International Trade and Transportation, a Bachelor of Business Administration in Business Intelligence and Value Management, and a Graduate Certificate in Business Analytics. I also hold the Certified Customs Specialist (CCS) designation from the Canadian Society of Customs Brokers (CSCB).\nI have over twenty years of professional experience working with data-driven forecasting, reporting, and business systems across international trade, customs, freight forwarding, and global supply chain operations. My work involved close collaboration with IT teams and data engineers, supporting EDI, ERP and CRM implementations, and translating complex data into actionable insights for senior leadership."
+  },
+  {
+    "objectID": "about.html#why-data-science",
+    "href": "about.html#why-data-science",
+    "title": "About",
+    "section": "Why data science",
+    "text": "Why data science\nMy interest in data science grew naturally from years of working closely with data, forecasting, and business systems across multiple industries, where I experienced firsthand the impact of data-driven decision-making. To prepare for this transition, I completed programming courses and enrolled in BCIT’s Graduate Certificate in Business Analytics to strengthen my foundation in statistics, probability, and applied analytics. I am drawn to the UBC MDS program to deepen my knowledge of data science and emerging technologies, and to further develop the technical skills needed to succeed in this rapidly evolving field."
+  },
+  {
+    "objectID": "about.html#outside-of-data-science",
+    "href": "about.html#outside-of-data-science",
+    "title": "About",
+    "section": "Outside of data science",
+    "text": "Outside of data science\nOutside of studying, I enjoy keeping things simple, taking care of my indoor plants, doing some house cleaning, and catching up on as much sleep as possible on the weekends. My favourite hobbies can probably be summarized as sleep, eat, and chill! I also enjoy different activities with the seasons : travelling in the spring, hiking in the summer, relaxing in hot springs in the fall, and snowboarding in the winter."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "June Lynn",
+    "section": "",
+    "text": "Before MDS, I worked in global trade and logistics for over 22 years. I am now taking a career break to pursue my master’s degree and build my knowledge and skills in data science. I have not planned out exactly what comes next after MDS, and I am keeping an open mind. I am excited to see where this journey will lead me."
   }
 ]
