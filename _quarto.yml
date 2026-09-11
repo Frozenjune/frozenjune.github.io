@@ -8,7 +8,7 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: abuot.qmd
+      - href: about.qmd
         text: About
       - href: blog.qmd
         text: Blog
