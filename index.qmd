@@ -1,7 +1,9 @@
----
+--
 title: "June Lynn"
+image: images/profile.jpeg
+about: 
+  template: marquee
+  image-shape: rectangle
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Before MDS, I worked in global trade and logistics for over 22 years. I am now taking a career break to pursue my master’s degree and build my knowledge and skills in data science. I have not planned out exactly what comes next after MDS, and I am keeping an open mind. I am excited to see where this journey will lead me.
