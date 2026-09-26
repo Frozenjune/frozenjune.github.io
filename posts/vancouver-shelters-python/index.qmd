@@ -1,0 +1,123 @@
+---
+title: "Vancouver Homeless Shelter Locations: A Python Analysis"
+author: "June Lynn"
+date: 2026-09-24
+jupyter: python3
+execute-dir: project
+---
+
+## Introduction
+
+This post explores homeless shelter locations in Vancouver using Python. 
+I will examine the shelter data, summarize some of its characteristics, 
+and create a visualization of the results.
+
+## About the Dataset
+
+This dataset is from the City of Vancouver Open Data Portal. It contains information about homeless shelter locations in the City of Vancouver. I will use this dataset to create summaries and visualizations.
+
+**Dataset:** Homeless Shelter Locations  
+**Publisher:** City of Vancouver  
+**Data Owner:** City of Vancouver  
+**Licence:** Open Government Licence - Vancouver  
+**Source:** [City of Vancouver Open Data Portal](https://opendata.vancouver.ca/explore/dataset/homeless-shelter-locations/)
+
+:::{.callout-note appearance="simple" icon=false}
+## Summary of Findings
+
+The analysis below summarizes the homeless shelter locations in Vancouver using tables and a graph. Some key findings are:
+
+1. Most shelters serve adults of all genders, with 12 out of 17 shelters in this category.
+2. Most shelters do not allow pets. Only 4 out of 17 shelters allow pets.
+3. Carts are allowed at only 2 out of 17 shelters.
+4. The shelters are located across several Geo Local Areas in Vancouver, with the largest number located in Downtown.
+
+The tables below summarize shelter categories, meal support, pets, and carts. The final graph shows the number of shelters by Geo Local Area.
+:::
+
+## Import packages
+```{python}
+#| message: false
+#| warning: false
+
+import pandas as pd
+import altair as alt
+```
+
+## Import Dataset
+```{python}
+from pathlib import Path
+
+project_root = Path.cwd()
+
+while not (project_root / "_quarto.yml").exists():
+    project_root = project_root.parent
+
+shelters = pd.read_excel(
+    project_root / "data" / "homeless-shelter-locations.xlsx"
+)
+
+shelters
+```
+
+```{python}
+shelters.shape
+shelters.columns
+```
+
+## Shelter Categories
+The following table summarizes the number of shelters in each category.
+
+```{python}
+category_table = shelters["CATEGORY"].value_counts().reset_index()
+category_table.columns = ["Category", "Number of Shelters"]
+category_table
+```
+
+## Meal Support
+The following table summarizes whether the shelters provide meal support.
+
+```{python}
+meals_table = shelters["MEALS"].value_counts().reset_index()
+meals_table.columns = ["Meal Support", "Number of Shelters"]
+meals_table
+```
+
+## Pets Allowed
+The following table summarizes whether pets are allowed at the shelters.
+
+```{python}
+pets_table = shelters["PETS"].value_counts().reset_index()
+pets_table.columns = ["Pets Allowed", "Number of Shelters"]
+pets_table
+```
+
+## Carts Allowed
+The following table summarizes whether carts are allowed at the shelters.
+
+```{python}
+carts_table = shelters["CARTS"].value_counts().reset_index()
+carts_table.columns = ["Carts Allowed", "Number of Shelters"]
+carts_table
+```
+
+## Shelters by Geo Local Area
+The following graph shows the number of homeless shelters in each Geo Local Area.
+
+```{python}
+geo_table = shelters["Geo Local Area"].value_counts().reset_index()
+geo_table.columns = ["Geo Local Area", "Number of Shelters"]
+geo_table
+```
+
+```{python}
+#| label: fig-geo-local-area
+#| fig-cap: "Number of homeless shelters by Geo Local Area in Vancouver."
+
+chart = alt.Chart(geo_table).mark_bar().encode(
+    x=alt.X("Number of Shelters:Q", title="Number of Shelters"),
+    y=alt.Y("Geo Local Area:N", sort="-x", title="Geo Local Area"))
+
+chart
+```
+

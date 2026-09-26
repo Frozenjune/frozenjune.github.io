@@ -1,5 +1,82 @@
 [
   {
+    "objectID": "posts/vancouver-shelters-r/index.html",
+    "href": "posts/vancouver-shelters-r/index.html",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "",
+    "text": "This post explores homeless shelter locations in Vancouver using Python. I will examine the shelter data, summarize some of its characteristics, and create a visualization of the results."
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#introduction",
+    "href": "posts/vancouver-shelters-r/index.html#introduction",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "",
+    "text": "This post explores homeless shelter locations in Vancouver using Python. I will examine the shelter data, summarize some of its characteristics, and create a visualization of the results."
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#about-the-dataset",
+    "href": "posts/vancouver-shelters-r/index.html#about-the-dataset",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "About the Dataset",
+    "text": "About the Dataset\nThis dataset is from the City of Vancouver Open Data Portal. It contains information about homeless shelter locations in the City of Vancouver. I will use this dataset to create summaries and visualizations.\nDataset: Homeless Shelter Locations\nPublisher: City of Vancouver\nData Owner: City of Vancouver\nLicence: Open Government Licence - Vancouver\nSource: City of Vancouver Open Data Portal\n\n\n\n\n\n\nNoteSummary of Findings\n\n\n\nThe analysis below summarizes the homeless shelter locations in Vancouver using tables and a graph. Some key findings are:\n\nMost shelters serve adults of all genders, with 12 out of 17 shelters in this category.\nMost shelters do not allow pets. Only 4 out of 17 shelters allow pets.\nCarts are allowed at only 2 out of 17 shelters.\nThe shelters are located across several Geo Local Areas in Vancouver, with the largest number located in Downtown.\n\nThe tables below summarize shelter categories, meal support, pets, and carts. The final graph shows the number of shelters by Geo Local Area."
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#import-packages",
+    "href": "posts/vancouver-shelters-r/index.html#import-packages",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Import packages",
+    "text": "Import packages\n\nlibrary(readxl)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(leaflet)\nlibrary(tidyr)\nlibrary(here)"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#import-dataset",
+    "href": "posts/vancouver-shelters-r/index.html#import-dataset",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Import Dataset",
+    "text": "Import Dataset\n\nshelters &lt;- read_excel(\n  here(\"data\", \"homeless-shelter-locations.xlsx\")\n)\n\nshelters\n\n# A tibble: 17 × 9\n   FACILITY CATEGORY PHONE MEALS PETS  CARTS Geom  `Geo Local Area` geo_point_2d\n   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;       \n 1 Union G… Men      604-… yes   no    no    \"{\\\"… Strathcona       49.28187170…\n 2 Catholi… Men      604-… no    no    no    \"{\\\"… Downtown         49.27769337…\n 3 Tenth A… Adults … 604-… yes   no    no    \"{\\\"… Mount Pleasant   49.26233830…\n 4 The Hav… Men      604-… no    no    no    \"{\\\"… Downtown         49.28205621…\n 5 Triage   Adults … 604-… no    no    no    \"{\\\"… Strathcona       49.28325701…\n 6 Vineyar… Adults … 604-… yes   no    no    \"{\\\"… Grandview-Woodl… 49.26933566…\n 7 Anchor … Adults … 604-… yes   no    no    \"{\\\"… Downtown         49.28205621…\n 8 First B… Adults … 604-… yes   no    no    \"{\\\"… West End         49.28185115…\n 9 First U… Adults … 604-… yes   yes   yes   \"{\\\"… Strathcona       49.28098552…\n10 Grandvi… Adults … 604-… yes   no    no    \"{\\\"… Grandview-Woodl… 49.26974745…\n11 Lookout… Adults … 604-… no    yes   no    \"{\\\"… Strathcona       49.28374408…\n12 The Bea… Men      604-… no    no    no    \"{\\\"… Downtown         49.28205621…\n13 Crosswa… Adults … 604-… no    no    no    \"{\\\"… Downtown         49.28180507…\n14 Dusk to… Youth (… 604-… yes   no    no    \"{\\\"… Downtown         49.27956687…\n15 Belkin … Adults … 604-… no    no    no    \"{\\\"… Downtown         49.28245749…\n16 Yukon S… Adults … 604-… no    yes   no    \"{\\\"… Mount Pleasant   49.26689088…\n17 Aborigi… Adults … 604-… yes   yes   yes   \"{\\\"… Strathcona       49.27157435…\n\n\n\ndim(shelters)\n\n[1] 17  9\n\nnames(shelters)\n\n[1] \"FACILITY\"       \"CATEGORY\"       \"PHONE\"          \"MEALS\"         \n[5] \"PETS\"           \"CARTS\"          \"Geom\"           \"Geo Local Area\"\n[9] \"geo_point_2d\""
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#shelter-categories",
+    "href": "posts/vancouver-shelters-r/index.html#shelter-categories",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Shelter Categories",
+    "text": "Shelter Categories\nThe following table summarizes the number of shelters in each category.\n\ncategory_table &lt;- shelters |&gt;\n  count(CATEGORY, name = \"Number of Shelters\") |&gt;\n  rename(Category = CATEGORY) |&gt;\n  arrange(desc(`Number of Shelters`))\n\ncategory_table\n\n# A tibble: 3 × 2\n  Category             `Number of Shelters`\n  &lt;chr&gt;                               &lt;int&gt;\n1 Adults (all genders)                   12\n2 Men                                     4\n3 Youth (all genders)                     1"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#meal-support",
+    "href": "posts/vancouver-shelters-r/index.html#meal-support",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Meal Support",
+    "text": "Meal Support\nThe following table summarizes whether the shelters provide meal support.\n\nmeals_table &lt;- shelters |&gt;\n  count(MEALS, name = \"Number of Shelters\") |&gt;\n  rename(`Meal Support` = MEALS) |&gt;\n  arrange(desc(`Number of Shelters`))\n\nmeals_table\n\n# A tibble: 2 × 2\n  `Meal Support` `Number of Shelters`\n  &lt;chr&gt;                         &lt;int&gt;\n1 yes                               9\n2 no                                8"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#pets-allowed",
+    "href": "posts/vancouver-shelters-r/index.html#pets-allowed",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Pets Allowed",
+    "text": "Pets Allowed\nThe following table summarizes whether pets are allowed at the shelters.\n\npets_table &lt;- shelters |&gt;\n  count(PETS, name = \"Number of Shelters\") |&gt;\n  rename(`Pets Allowed` = PETS) |&gt;\n  arrange(desc(`Number of Shelters`))\n\npets_table\n\n# A tibble: 2 × 2\n  `Pets Allowed` `Number of Shelters`\n  &lt;chr&gt;                         &lt;int&gt;\n1 no                               13\n2 yes                               4"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#carts-allowed",
+    "href": "posts/vancouver-shelters-r/index.html#carts-allowed",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Carts Allowed",
+    "text": "Carts Allowed\nThe following table summarizes whether carts are allowed at the shelters.\n\ncarts_table &lt;- shelters |&gt;\n  count(CARTS, name = \"Number of Shelters\") |&gt;\n  rename(`Carts Allowed` = CARTS) |&gt;\n  arrange(desc(`Number of Shelters`))\n\ncarts_table\n\n# A tibble: 2 × 2\n  `Carts Allowed` `Number of Shelters`\n  &lt;chr&gt;                          &lt;int&gt;\n1 no                                15\n2 yes                                2"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#shelters-by-geo-local-area",
+    "href": "posts/vancouver-shelters-r/index.html#shelters-by-geo-local-area",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Shelters by Geo Local Area",
+    "text": "Shelters by Geo Local Area\nThe following graph shows the number of homeless shelters in each Geo Local Area.\n\ngeo_table &lt;- shelters |&gt;\n  count(`Geo Local Area`, name = \"Number of Shelters\") |&gt;\n  arrange(desc(`Number of Shelters`))\n\ngeo_table\n\n# A tibble: 5 × 2\n  `Geo Local Area`   `Number of Shelters`\n  &lt;chr&gt;                             &lt;int&gt;\n1 Downtown                              7\n2 Strathcona                            5\n3 Grandview-Woodland                    2\n4 Mount Pleasant                        2\n5 West End                              1\n\n\n\nggplot(\n  geo_table,\n  aes(\n    x = `Number of Shelters`,\n    y = reorder(`Geo Local Area`, `Number of Shelters`)\n  )\n) +\n  geom_col() +\n  labs(\n    x = \"Number of Shelters\",\n    y = \"Geo Local Area\"\n  )\n\n\n\n\n\n\n\nFigure 1: Number of homeless shelters by Geo Local Area in Vancouver."
+  },
+  {
+    "objectID": "posts/vancouver-shelters-r/index.html#shelter-locations-map",
+    "href": "posts/vancouver-shelters-r/index.html#shelter-locations-map",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Shelter Locations Map",
+    "text": "Shelter Locations Map\nThe map below shows the locations of homeless shelters in Vancouver.\n\nmap_data &lt;- shelters |&gt;\n  tidyr::separate_wider_delim(\n    geo_point_2d,\n    delim = \", \",\n    names = c(\"latitude\", \"longitude\")\n  ) |&gt;\n  mutate(\n    latitude = as.numeric(latitude),\n    longitude = as.numeric(longitude)\n  )\n\nleaflet(map_data) |&gt;\n  addTiles() |&gt;\n  addMarkers(\n    lng = ~longitude,\n    lat = ~latitude,\n    popup = ~FACILITY\n  )"
+  },
+  {
     "objectID": "posts/first-weeks/index.html",
     "href": "posts/first-weeks/index.html",
     "title": "My first weeks in MDS",
@@ -11,7 +88,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "My first weeks in MDS\n\n\n\n\n\n\n\n\nSep 11, 2026\n\n\nJune Lynn\n\n\n\n\n\nNo matching items"
+    "text": "Vancouver Homeless Shelter Locations: A Python Analysis\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nJune Lynn\n\n\n\n\n\n\n\n\n\n\n\n\nVancouver Homeless Shelter Locations: A Python Analysis\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nJune Lynn\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 11, 2026\n\n\nJune Lynn\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -47,5 +124,75 @@
     "title": "June Lynn",
     "section": "",
     "text": "Before MDS, I worked in global trade and logistics for over 22 years. I am now taking a career break to pursue my master’s degree and build my knowledge and skills in data science. I have not planned out exactly what comes next after MDS, and I am keeping an open mind. I am excited to see where this journey will lead me."
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html",
+    "href": "posts/vancouver-shelters-python/index.html",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "",
+    "text": "This post explores homeless shelter locations in Vancouver using Python. I will examine the shelter data, summarize some of its characteristics, and create a visualization of the results."
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html#introduction",
+    "href": "posts/vancouver-shelters-python/index.html#introduction",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "",
+    "text": "This post explores homeless shelter locations in Vancouver using Python. I will examine the shelter data, summarize some of its characteristics, and create a visualization of the results."
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html#about-the-dataset",
+    "href": "posts/vancouver-shelters-python/index.html#about-the-dataset",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "About the Dataset",
+    "text": "About the Dataset\nThis dataset is from the City of Vancouver Open Data Portal. It contains information about homeless shelter locations in the City of Vancouver. I will use this dataset to create summaries and visualizations.\nDataset: Homeless Shelter Locations\nPublisher: City of Vancouver\nData Owner: City of Vancouver\nLicence: Open Government Licence - Vancouver\nSource: City of Vancouver Open Data Portal\n\n\n\n\n\n\nNoteSummary of Findings\n\n\n\nThe analysis below summarizes the homeless shelter locations in Vancouver using tables and a graph. Some key findings are:\n\nMost shelters serve adults of all genders, with 12 out of 17 shelters in this category.\nMost shelters do not allow pets. Only 4 out of 17 shelters allow pets.\nCarts are allowed at only 2 out of 17 shelters.\nThe shelters are located across several Geo Local Areas in Vancouver, with the largest number located in Downtown.\n\nThe tables below summarize shelter categories, meal support, pets, and carts. The final graph shows the number of shelters by Geo Local Area."
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html#import-packages",
+    "href": "posts/vancouver-shelters-python/index.html#import-packages",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Import packages",
+    "text": "Import packages\n\nimport pandas as pd\nimport altair as alt"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html#import-dataset",
+    "href": "posts/vancouver-shelters-python/index.html#import-dataset",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Import Dataset",
+    "text": "Import Dataset\n\nfrom pathlib import Path\n\nproject_root = Path.cwd()\n\nwhile not (project_root / \"_quarto.yml\").exists():\n    project_root = project_root.parent\n\nshelters = pd.read_excel(\n    project_root / \"data\" / \"homeless-shelter-locations.xlsx\"\n)\n\nshelters\n\n\n\n\n\n\n\n\nFACILITY\nCATEGORY\nPHONE\nMEALS\nPETS\nCARTS\nGeom\nGeo Local Area\ngeo_point_2d\n\n\n\n\n0\nUnion Gospel Mission\nMen\n604-253-3323\nyes\nno\nno\n{\"coordinates\":[-123.09098604679792,49.2818717...\nStrathcona\n49.281871703205425, -123.09098604679792\n\n\n1\nCatholic Charities Men's Hostel\nMen\n604-443-3292\nno\nno\nno\n{\"coordinates\":[-123.1147756731615,49.27769337...\nDowntown\n49.27769337237721, -123.1147756731615\n\n\n2\nTenth Avenue Church\nAdults (all genders)\n604-876-2181\nyes\nno\nno\n{\"coordinates\":[-123.10586046207774,49.2623383...\nMount Pleasant\n49.262338305195684, -123.10586046207774\n\n\n3\nThe Haven\nMen\n604-646-6800\nno\nno\nno\n{\"coordinates\":[-123.10109474719326,49.2820562...\nDowntown\n49.282056211986955, -123.10109474719326\n\n\n4\nTriage\nAdults (all genders)\n604-254-3700\nno\nno\nno\n{\"coordinates\":[-123.08914065335308,49.2832570...\nStrathcona\n49.28325701333048, -123.08914065335308\n\n\n5\nVineyard Church\nAdults (all genders)\n604-255-4463\nyes\nno\nno\n{\"coordinates\":[-123.07055190144827,49.2693356...\nGrandview-Woodland\n49.269335660054985, -123.07055190144827\n\n\n6\nAnchor of Hope\nAdults (all genders)\n604-646-6899\nyes\nno\nno\n{\"coordinates\":[-123.10109474719326,49.2820562...\nDowntown\n49.282056211986955, -123.10109474719326\n\n\n7\nFirst Baptist Church\nAdults (all genders)\n604-683-8441\nyes\nno\nno\n{\"coordinates\":[-123.12645824751823,49.2818511...\nWest End\n49.281851154764425, -123.12645824751823\n\n\n8\nFirst United Church\nAdults (all genders)\n604-681-8365\nyes\nyes\nyes\n{\"coordinates\":[-123.09704179173589,49.2809855...\nStrathcona\n49.28098552764485, -123.09704179173589\n\n\n9\nGrandview Calvary Baptist Church\nAdults (all genders)\n604-255-1411\nyes\nno\nno\n{\"coordinates\":[-123.06735635798717,49.2697474...\nGrandview-Woodland\n49.26974745114546, -123.06735635798717\n\n\n10\nLookout Downtown\nAdults (all genders)\n604-681-9126\nno\nyes\nno\n{\"coordinates\":[-123.09620765787055,49.2837440...\nStrathcona\n49.28374408771319, -123.09620765787055\n\n\n11\nThe Beacon\nMen\n604-646-6846\nno\nno\nno\n{\"coordinates\":[-123.10109474719326,49.2820562...\nDowntown\n49.282056211986955, -123.10109474719326\n\n\n12\nCrosswalk\nAdults (all genders)\n604-669-4349\nno\nno\nno\n{\"coordinates\":[-123.10767247883172,49.2818050...\nDowntown\n49.28180507947213, -123.10767247883172\n\n\n13\nDusk to Dawn-Directions Youth Centre\nYouth (all genders)\n604-633-1472\nyes\nno\nno\n{\"coordinates\":[-123.12780362309378,49.2795668...\nDowntown\n49.27956687773119, -123.12780362309378\n\n\n14\nBelkin House\nAdults (all genders)\n604-681-3405\nno\nno\nno\n{\"coordinates\":[-123.11292301849707,49.2824574...\nDowntown\n49.282457498201765, -123.11292301849707\n\n\n15\nYukon Shelter\nAdults (all genders)\n604-264-1680\nno\nyes\nno\n{\"coordinates\":[-123.11236726193974,49.2668908...\nMount Pleasant\n49.26689088504469, -123.11236726193974\n\n\n16\nAboriginal Shelter\nAdults (all genders)\n604-347-0299\nyes\nyes\nyes\n{\"coordinates\":[-123.09934686157887,49.2715743...\nStrathcona\n49.27157435253819, -123.09934686157887\n\n\n\n\n\n\n\n\nshelters.shape\nshelters.columns\n\nIndex(['FACILITY', 'CATEGORY', 'PHONE', 'MEALS', 'PETS', 'CARTS', 'Geom',\n       'Geo Local Area', 'geo_point_2d'],\n      dtype='str')"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html#shelter-categories",
+    "href": "posts/vancouver-shelters-python/index.html#shelter-categories",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Shelter Categories",
+    "text": "Shelter Categories\nThe following table summarizes the number of shelters in each category.\n\ncategory_table = shelters[\"CATEGORY\"].value_counts().reset_index()\ncategory_table.columns = [\"Category\", \"Number of Shelters\"]\ncategory_table\n\n\n\n\n\n\n\n\nCategory\nNumber of Shelters\n\n\n\n\n0\nAdults (all genders)\n12\n\n\n1\nMen\n4\n\n\n2\nYouth (all genders)\n1"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html#meal-support",
+    "href": "posts/vancouver-shelters-python/index.html#meal-support",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Meal Support",
+    "text": "Meal Support\nThe following table summarizes whether the shelters provide meal support.\n\nmeals_table = shelters[\"MEALS\"].value_counts().reset_index()\nmeals_table.columns = [\"Meal Support\", \"Number of Shelters\"]\nmeals_table\n\n\n\n\n\n\n\n\nMeal Support\nNumber of Shelters\n\n\n\n\n0\nyes\n9\n\n\n1\nno\n8"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html#pets-allowed",
+    "href": "posts/vancouver-shelters-python/index.html#pets-allowed",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Pets Allowed",
+    "text": "Pets Allowed\nThe following table summarizes whether pets are allowed at the shelters.\n\npets_table = shelters[\"PETS\"].value_counts().reset_index()\npets_table.columns = [\"Pets Allowed\", \"Number of Shelters\"]\npets_table\n\n\n\n\n\n\n\n\nPets Allowed\nNumber of Shelters\n\n\n\n\n0\nno\n13\n\n\n1\nyes\n4"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html#carts-allowed",
+    "href": "posts/vancouver-shelters-python/index.html#carts-allowed",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Carts Allowed",
+    "text": "Carts Allowed\nThe following table summarizes whether carts are allowed at the shelters.\n\ncarts_table = shelters[\"CARTS\"].value_counts().reset_index()\ncarts_table.columns = [\"Carts Allowed\", \"Number of Shelters\"]\ncarts_table\n\n\n\n\n\n\n\n\nCarts Allowed\nNumber of Shelters\n\n\n\n\n0\nno\n15\n\n\n1\nyes\n2"
+  },
+  {
+    "objectID": "posts/vancouver-shelters-python/index.html#shelters-by-geo-local-area",
+    "href": "posts/vancouver-shelters-python/index.html#shelters-by-geo-local-area",
+    "title": "Vancouver Homeless Shelter Locations: A Python Analysis",
+    "section": "Shelters by Geo Local Area",
+    "text": "Shelters by Geo Local Area\nThe following graph shows the number of homeless shelters in each Geo Local Area.\n\ngeo_table = shelters[\"Geo Local Area\"].value_counts().reset_index()\ngeo_table.columns = [\"Geo Local Area\", \"Number of Shelters\"]\ngeo_table\n\n\n\n\n\n\n\n\nGeo Local Area\nNumber of Shelters\n\n\n\n\n0\nDowntown\n7\n\n\n1\nStrathcona\n5\n\n\n2\nMount Pleasant\n2\n\n\n3\nGrandview-Woodland\n2\n\n\n4\nWest End\n1\n\n\n\n\n\n\n\n\nchart = alt.Chart(geo_table).mark_bar().encode(\n    x=alt.X(\"Number of Shelters:Q\", title=\"Number of Shelters\"),\n    y=alt.Y(\"Geo Local Area:N\", sort=\"-x\", title=\"Geo Local Area\"))\n\nchart\n\n\n\n\n\n\n\n\n\nFigure 1: Number of homeless shelters by Geo Local Area in Vancouver."
   }
 ]
