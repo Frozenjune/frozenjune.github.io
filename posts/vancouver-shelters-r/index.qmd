@@ -2,6 +2,7 @@
 title: "Vancouver Homeless Shelter Locations: A Python Analysis"
 author: "June Lynn"
 date: 2026-09-24
+image: "../../images/r-shelter-map.png"
 execute-dir: project
 ---
 
